@@ -63,13 +63,13 @@ def parse_nutrition(soup: BeautifulSoup):
             value = clean_value(value_span.get_text(strip=True).split('\n')[0].split(' ')[0])
             metric = metric_span.get_text(strip=True)
 
-            if "НЖК:" in metric:
+            if "НЖК" in metric:
                 nutrition_info['unsaturated_fats'] = value
-            elif "Цукор:" in metric:
+            elif "Цукор" in metric:
                 nutrition_info['sugar'] = value
-            elif "Сіль:" in metric:
+            elif "Сіль" in metric:
                 nutrition_info['salt'] = value
-            elif "Порція:" in metric:
+            elif "Порція" in metric:
                 nutrition_info['portion'] = value
 
     return nutrition_info
@@ -104,12 +104,15 @@ def save_to_json(data, file_name):
     with open(file_name, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
 
-if __name__ == "__main__":
+def get_all_products():
     driver_path = 'chromedriver.exe'
     driver = init_driver(driver_path)
 
     try:
-        all_products = parse_menu(driver, "https://www.mcdonalds.com/ua/uk-ua/eat/fullmenu.html")
-        save_to_json(all_products, "products.json")
+        return parse_menu(driver, "https://www.mcdonalds.com/ua/uk-ua/eat/fullmenu.html")
     finally:
         driver.quit()
+
+
+all_products = get_all_products()
+save_to_json(all_products, 'products.json')
