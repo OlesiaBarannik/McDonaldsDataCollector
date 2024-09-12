@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, abort
+from flask import Flask, jsonify
 import json
 
 app = Flask(__name__)
@@ -12,7 +12,6 @@ def load_data():
         return {}
     except json.JSONDecodeError:
         return {}
-
 
 products_data = load_data()
 

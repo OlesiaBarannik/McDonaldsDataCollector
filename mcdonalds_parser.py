@@ -105,7 +105,7 @@ def save_to_json(data, file_name):
         json.dump(data, f, ensure_ascii=False, indent=4)
 
 def get_all_products():
-    driver_path = 'chromedriver.exe'
+    driver_path = 'chromedriver.exe'  #for Chrome version 128
     driver = init_driver(driver_path)
 
     try:
